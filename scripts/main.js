@@ -56,6 +56,7 @@ function startGame() {
 
     // Player movement
     let playerSpeed = 10;
+    let jumpSpeed = 40;
     document.addEventListener('keydown', (event) => {
         const playerRect = player.getBoundingClientRect();
         const containerRect = gameContainer.getBoundingClientRect();
@@ -64,8 +65,16 @@ function startGame() {
             player.style.left = `${player.offsetLeft - playerSpeed}px`;
         } else if (event.key === 'ArrowRight' && playerRect.right < containerRect.right) {
             player.style.left = `${player.offsetLeft + playerSpeed}px`;
+        }else if (event.key === 'ArrowUp' && playerRect.top > containerRect.top) {
+            player.style.top = `${player.offsetTop - playerSpeed}px`;
         }
 
+        // Apply gravity
+        const gravity = 10;
+        const playerBottom = player.offsetTop + player.offsetHeight;
+        if (playerBottom < gameContainer.clientHeight) {
+            player.style.top = `${player.offsetTop + gravity}px`;
+        }
         // Check for collision with the target
         if (isColliding(player, target)) {
             score++;
