@@ -1,5 +1,9 @@
 // Wait for the button click to start the game
+var gamestarted = false;
 document.getElementById('startGameButton').addEventListener('click', () => {
+    if (gamestarted) {
+        return;
+    }
     // Show the game container
     const gameContainer = document.getElementById('gameContainer');
     gameContainer.style.display = 'block';
@@ -10,6 +14,7 @@ document.getElementById('startGameButton').addEventListener('click', () => {
 
 function startGame() {
     // Create the game container
+    gamestarted = true;
     const gameContainer = document.getElementById('gameContainer');
     gameContainer.style.position = 'relative';
     gameContainer.style.width = '400px';
